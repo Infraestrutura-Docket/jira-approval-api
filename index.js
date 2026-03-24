@@ -33,9 +33,10 @@ app.get("/", async (req, res) => {
     });
 
     res.send("Ação executada com sucesso!");
-  } catch (err) {
-    res.send("Erro ao executar ação");
-  }
+  catch (err) {
+  console.error(err);
+  res.send("Erro: " + err.message);
+}
 });
 
 app.listen(3000, () => {
