@@ -7,6 +7,9 @@ app.get("/", async (req, res) => {
   const issue = req.query.issue;
   const action = req.query.action;
 
+  console.log("ISSUE:", issue);
+  console.log("ACTION:", action);
+  
   let webhook = "";
   let secret = "";
 
@@ -19,7 +22,9 @@ app.get("/", async (req, res) => {
     webhook = "https://api-private.atlassian.com/automation/webhooks/jira/a/bff8d70c-fdc8-4c09-bb88-554f98722f0b/019d1c7e-af76-7d20-bca5-a1a6bc2aeb80";
     secret = "0a2bc0e99d3feedc9c64b07c2f2fa58fffadd461";
   }
-
+  if (!webhook) {
+    return res.send("Erro: ação inválida ou webhook não definido");
+  }
   try {
     await fetch(webhook, {
       method: "POST",
